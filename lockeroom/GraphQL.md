@@ -33,11 +33,11 @@ REST API에서는 다양한 엔드포인트에서 화면에 뿌려주기위한 �
 예를들어 먼저 `/users/:id` 라는 엔드포인트에서 유저의 정보를 가져올테고 두번째로, `/users/:id/posts`에서 유저가 쓴 포스트를 가져와야 한다.
 마지막으로 `/users/:id/follwers` 라는 곳에서 유저를 팔로우하는 팔로워 리스트를 불러올 것이다.
 
-![REST API에서 데이터를 가져오는 과정](GraphQL_1.png)
+![REST API에서 데이터를 가져오는 과정](https://imgur.com/VRyV7Jh.png.png)
 
 GraphQL에서는 반대로 오로지 하나의 쿼리만을 서버에 보낸다. 서버는 요구사항을 충족하는 단하나의 JSON 오브젝트로 응답한다.
 
-![GraphQL에서 데이터를 가져오는 과정](GraphQL_2.png)
+![GraphQL에서 데이터를 가져오는 과정](https://imgur.com/z9VKnHs.png.png)
 
 #### No more Over- and Underfetching
 더 이상은 클라이언트에 정보를 뿌려주기위해 필요 이상으로 많은(Overfetching) 데이터를 불러오거나 필요에 충족하지 못하는 부분 데이터를 가져와서(Underfetching) API를 여러번 호출하지 말자. REST의 가장 큰 문제가 Overfetching 혹은 Underfetching이다. 이런 문제가 발생하는 원인은 REST가 하나의 엔드포인트에서 **고정**된 데이터 형식만 가져오기 때문이다. 때문에 클라이언트가 정확히 원하는 데이터 셋을 전달하는 API를 제공하기가 어려웠다.
