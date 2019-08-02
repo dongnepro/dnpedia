@@ -148,7 +148,7 @@ export default Index;
 
 ### 1.7 공유 컴포넌트
 
-특정 디렉토리에 컴포넌트를 둘 필요는 없습니다. 원하는 대로 이름을 지정할 수 있습니다. 특정 디렉토리는 `pages입니다.
+특정 디렉토리에 컴포넌트를 둘 필요는 없습니다. 원하는 대로 이름을 지정할 수 있습니다. 특정 디렉토리는 `pages`입니다.
 
 ```js
 // components/MyLayout.js
@@ -209,4 +209,85 @@ export default function Index() {
 }
 ```
 
+
+
+
+### 1.8 동적페이지 생성 
+
+포스트 목록을 추가후 쿼리 문자열를 통해 데이터를 전달 합니다. 
+아래와 같이 PostLink 컴포넌트를 구현합니다.
+
+```js
+import Layout from '../components/MyLayout';
+import Link from 'next/link';
+
+const PostLink = props => (
+  <li>
+    <Link href={`/post?title=${props.title}`}>
+      <a>{props.title}</a>
+    </Link>
+  </li>
+);
+export default function Blog() {
+  return (
+    <Layout>
+      <h1>My Blog</h1>
+      <ul>
+        <PostLink title="Hello Next.js" />
+        <PostLink title="Learn Next.js is awesome" />
+        <PostLink title="Deploy apps with Zeit" />
+      </ul>
+    </Layout>
+  );
+}
+```
+"Post" 페이지 생성 
+
+```js
+// pages/post.js
+import { useRouter } from 'next/router';
+import Layout from '../components/MyLayout';
+
+const Page = () => {
+  const router = useRouter();
+
+  return (
+    <Layout>
+      <h1>{router.query.title}</h1>
+      <p>This is the blog post content.</p>
+    </Layout>
+  );
+};
+
+export default Page;
+```
+> Next.js 객체를 반환 할 useRouter 함수를 가져 와서 사용합니다. 
+> 쿼리 문자열 params가있는 라우터의 개체를 사용하고 있습니다.
+
+#### useRouter
+
+`useRouter`를 사용하면 router 페이지 내부의 객체에 엑세스 할 수 있습니다. 이 객체는 [React Hook](https://reactjs.org/docs/hooks-intro.html)이며 함수 구성 요소와 함께 작동합니다. 
+
+```js
+import { useRouter } from 'next/router';
+import Layout from '../components/MyLayout.js';
+
+const Content = () => {
+  const router = useRouter();
+  return (
+    <>
+      <h1>{router.query.title}</h1>
+      <p>This is the blog post content.</p>
+    </>
+  );
+};
+
+const Page = () => (
+  <Layout>
+    <Content />
+  </Layout>
+);
+
+export default Page;
+```
 
