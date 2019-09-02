@@ -3,6 +3,7 @@
 출처 : [How to GraphQL](https://www.howtographql.com)
 
 ## 1. GraphQL이란 ?
+한줄요약 : REST 대체하는 새로운 API를 위한 Query Language다.
 
 - GraphQL은 페이스북에 의해 개발되고 오픈소스로 공유되고 있는 새로운 API의 기준이다.
 - 선언적 데이터 가져오기를 할 수 있다.(enables declarative data fetching)
