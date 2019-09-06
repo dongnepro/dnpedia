@@ -257,16 +257,16 @@ let foo_bar;
 'hello'; // 문자열 리터럴
 true; // 진리값 리터럴
 ```
-### 3-5. 원시 타입과 객체
+### 3-4. 원시 타입과 객체
 
 |원시타입|참조타입|
 |---|---|
 |Boolean|Object|
-Null6||
-Undefined||
-Number||
-String||
-Symbol||
+Null6| |
+Undefined| |
+Number| |
+String| |
+Symbol| |
 
 ![](https://t1.daumcdn.net/cfile/tistory/9968C8405C2704C702)
 
@@ -283,3 +283,51 @@ Primitive Type(기본형) : 값을 그대로 할당
 Reference Type(참조형) : 참조된 주소를 할당
 
 선언 -> 할당 -> 데이터에 객체정보 주소와 저장 -> 해당 주소의 데이터 안에 객체정보 주소와 저장 -> 해당 주소의 온전한 데이터들을 할당
+
+### 3-5. 숫자
+
+자바스크립트도 다른 프로그래밍 언너와 마찬가지로 실제 숫자의 근사치를 저장할 때 IEEE-764 배정도 부동소수점 숫자 형식을 사용합니다. 
+
+자바스크립트에는 숫자형 데이터 타입이 하나밖에 없습니다. 대부분의 프로그래밍 언어는 여러가지 정수 타입을 사용하며 부동소수점 숫자 타입도 두가지 이상 사용합니다. 
+
+```js
+7; // 정수 리터럴
+2.5; // 부동 소수점 리터럴
+0b111; // 2진수 리터럴 (binary literal)
+0o777; // 8진수 리터럴 (octal literal)
+0xf5; // 16진수 리터럴 (hexademical literal)
+
+NaN //계산 불가능한 연산의 결과값
+-0 // 0과 같은 값으로 간주
+Infinity //무한 
+-Infinity
+```
+
+**NaN**
+
+유일하게 자신과 같지 않은 값지 않은 값입니다. 
+판별하기 위해서는 `Number.isNaN` 또는 `Object.is` 함수를 사용합니다. 
+
+```js
+const thisIsNan = NaN;
+
+// 주의! 이렇게 하면 안 됩니다.
+thisIsNan === NaN; // false
+
+// 이렇게 해야 합니다.
+Number.isNaN(thisIsNan); // true
+Object.is(thisIsNan, NaN); // true
+```
+
+**-0**
+
+`0`과 `-0`은 별개의 값이지만 비교연산은 하면 `true`
+그러나 예외 존재 합니다. `Object.is` 함수는 `0`과 `-0`을 다른값으로 취급합니다. 
+그리고 0이 아닌 어떤수를 `0` 혹은 `-0`으로 나눌 때에도 결과값이 다릅니다.
+
+```js
+0 === -0; // true
+Object.is(0, -0); // false
+1 / 0; // Infinity
+1 / -0; // -Infinity
+```
