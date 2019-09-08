@@ -186,7 +186,7 @@ npm install --save-dev gulp-eslint
 
 ## 3. 리터럴과 변수, 상수, 데이터 타입
 
-변수와 상수 리터럴은 자바스크립트가 데이터를 보관하는 메커니즘 
+변수와 상수 리터럴은 자바스크립트가 데이터를 보관하는 메커니즘(체제)
 
 ### 3-1. 변수와 상수 
 
@@ -365,4 +365,106 @@ console.log(sentence);
 
 // 일반적인 문자열 리터럴로는 아래와 같이 해야 합니다.
 name1 + ' meets ' + name2 + '!';
+```
+
+### 3-8. 불리언 
+
+불리언은 true와 false 두 가지 값밖에 없는 데이터 타입입니다. 
+
+```js
+// falsy
+false
+null
+undefined
+0
+NaN
+''
+```
+
+### 3-9. 심볼 
+
+심볼은 유일한 토큰을 나타내기 위해 ES6에서 도입한 새 데이터 타입입니다.
+심볼은 항상 유일, 원시 값의 특징을 모두 가지고 있으므로 확장성 있는 코드를 만들 수 있습니다.
+
+``` js
+const RED = Symbol("The color of a sunset!");
+const ORANGE = Symbol("The color of a sunset!");
+RED === ORANGE //false: 심볼은 모두 서로 다릅니다.
+```
+심볼은 `Symbol()` 생성자로 만듭니다. 자바스크립트의 객체지향 프로그래밍에 익숙하다면 심볼을 만들 때 new 키워드를 사용할 수 없으며, 대문자로 시작하는 식별자는 new와 함께 사용 
+
+### 3-10. null과 undefined
+
+null이 가질 수 있는 값은 null 하나뿐이며, nudefined가 가질 수 있는 값도 undefined 하나뿐 
+null, undefined 모두 존재하지 않음, 
+
+`null` 
+- 프로그래머에게 허용된 데이터 타입, 
+- 변수의 값을 아직 모르거나 적용할 수 없는 경우 사용
+
+`undefined` 
+- 자바스크립트 자체에서 사용한다는 타입 
+- 명시적으로 값을 할당하지 않으면 그 변수에는 기본적으로 undefined가 할당
+
+```js
+let currentTemp; //암시적으로 undefined입니다. 
+const targetTemp = null; //대상 온도는 null, 즉 "아직 모르는" 값입니다.
+currentTemp = 19.5; //currentTemp에는 이제 값이 있음
+currentTemp = undefined; //currentTemp는 초기화되지 않은 듯합니다. 권장하지 않습니다.
+```
+
+### 3-10. 객체 
+
+원시 타입은 단 하나의 값만 나타낼 수 있고 불변이지만, 이와 달리 객체는 여러 가지 값이나 복잡한 값을 나타낼 수 있느며, 변할 수도 있습니다. 
+
+```js
+const obj = {};
+```
+
+객체 이름은 아무거나 써도 되자만, 일반적으로 의미를 알 수 있는 이름을 써야 합니다.
+객체의 콘텐츤은 프로퍼티또는 멤버라고 부릅니다. 프로퍼티는 이름(key)과 값으로 구성됩니다. 
+프로퍼티 이름에 유효한 식별자를 써야 멤버 접근 연산자(.)를 사용할수 있습니다.
+프로퍼티 이름에 유효하지 않은 식별자를 쓴다면 계산된 멤버 접근 연산자([])를 써야 합니다. 프로퍼티 이름이 유효한 식별자여도 대괄호로 접근할 수 있습니다. 
+
+obj는 계속 같은 객체를 가리키고, 바뀐 것은 객체의 프로퍼티입니다.
+
+```js
+const sam1 = {
+    name: 'Sam',
+    age: 4,
+}
+
+const sam2 = {name: "Sam", age: 4} //한줄로 선언
+
+const sam3 = {
+    name: 'Sam',
+    classification:{  //프로퍼티 값도 객체가 될 수 있음
+        kingdom: 'Anamalia',
+        phylum: 'Chordata',
+        class: 'Mamalia',
+        order: 'Carnivoria',
+        family: 'Felidae',
+        subfamily: 'Felinae',
+        genus: 'Felis',
+        species: 'catus',
+    }
+}
+```
+
+```js
+// sam3의 family에 접근하는 방법 
+// 백틱도 가능 
+sam3.classification.family;
+sam3["classification"].family;
+sam3.classification["family"];
+sam3["classification"]["family"]
+
+// 객체에 함수를 담기 
+sam3.speak=function(){return "Meow!"};
+
+// 함수 호출
+sam3.speak();
+
+// 프로퍼티 제거
+delete.sam3.speak;
 ```
