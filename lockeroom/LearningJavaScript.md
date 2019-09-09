@@ -1,4 +1,4 @@
-# LearningJavaScript-1회차 
+# LearningJavaScript
 
 ```md
 **정리한 목차**
