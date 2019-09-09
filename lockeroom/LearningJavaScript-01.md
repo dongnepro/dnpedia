@@ -468,3 +468,175 @@ sam3.speak();
 // 프로퍼티 제거
 delete.sam3.speak;
 ```
+
+
+### 3-11. Number, String, Boolean 객체 
+
+숫자롸 문자열, 불리언에는 각각 대응하는 객체 타입 Number, String, Boolean 있음, 이들 객체에는 두가지 목적이 있습니다. 하나는 Number.INFINITY 같은 특별한 값을 저장하는것이고, 다른 하나는 함수 형태로 기능을 제공
+
+number 타입과 마찬가지로 string 타입도 래퍼 객체의 속성과 메소드를 사용할 수 있습니다. 
+
+```js
+// 문자열의 길이 알아내기
+'hello'.length; // 5
+
+// 여러 문자열 연결하기
+'hello'.concat('fun', 'javascript'); // 'hellofunjavascript'
+
+// 특정 문자열을 반복하는 새 문자열 생성하기
+'*'.repeat(3); // '***'
+
+// 특정 문자열이 포함되어 있는지 확인하기
+'hello javascript'.includes('hello'); // true
+'hello javascript'.startsWith('he'); // true
+'hello javascript'.endsWith('ript'); // true
+'hello javascript'.indexOf('java'); // 6
+
+// 문자열의 특정 부분을 바꾼 새 문자열 생성하기
+'hello javascript'.replace('java', 'type'); // 'hello typescript'
+
+// 문자열의 일부를 잘라낸 새 문자열 생성하기
+'hello'.slice(2, 4); // 'll'
+
+// 좌우 공백문자를 제거한 새 문자열 생성하기
+'   hello  '.trim(); // 'hello'
+'   hello  '.trimLeft(); // 'hello  '
+'   hello  '.trimRight(); // '   hello'
+
+// 좌우 공백문자를 추가한 새 문자열 생성하기
+'hello'.padStart(8); // '   hello'
+'hello'.padEnd(8); // 'hello   '
+
+// 문자열을 특정 문자를 기준으로 잘라 새 배열 생성하기
+'hello!fun!javavscript'.split('!'); // ['hello', 'fun', 'javascript']
+'hello'.split(''); // ['h', 'e', 'l', 'l', 'o']
+
+// 모든 문자를 소문자, 혹은 대문자로 변환한 새 문자열 생성하기
+'Hello JavaScript'.toLowerCase(); // 'hello javascript'
+'Hello JavaScript'.toUpperCase(); // 'HELLO JAVASCRIPT'
+```
+
+### 3-12. 배열
+
+객체와 달리 배열 콘텐츠에는 항상 순서가 있고, 키는 순차적인 숫자입니다. 배열은 유용한 메서드를 많이 가진 대단한 강력한 데이터 타입 
+
+동적 배열, 리으드 리스트를 혼합한 것임을 알수 있다.
+
+* 배열 크기는 고정되지 않습니다.언제든 요소를 추가하거나 제거할 수 있습니다.
+* 요소의 데이터 타입을 가리지 않습니다. 즉, 문자열만 쓸 수 있는 배열이라던가 숫자만 쓸 수 있는 배열 같은 개념이 아예 없습니다. 
+* 배열 요소는 0으로 시작 
+
+> 배열은 기능이 추가된 특수한 객체이므로 배열에 숫자가 아닌 키나 분수, 음수 등을 키로 쓸 수는 있습니다. 가능하기는 하지만, 이런 행동은 배열의 설계 목적에 어긋날 뿐 아니라 어려운 버그 초래
+
+```js
+const a1 = [1,2,3,4]; // 숫자로 구성된 배열
+const a2 = [1,'tow',3, null]; // 여러 가지 타입으로 구성된 배열
+const a3 = [    // 여러 줄로 정의한 배열
+    "one",
+    "two",
+    "three"
+]; 
+const a4 = [   // 객체가 들어있는 배열
+    {name: "Ruby", hardness:9}
+];
+const a5 = [   // 배열이 들어있는 배열
+    [1,3,5]
+    [2,4,6]
+]
+```
+
+```js
+//배열에 요소 숫자를 반환
+const arr = ['a', 'b', 'c'];
+arr.length;
+```
+
+```js
+const arr = ['a', 'b', 'c'];
+// 첫번째 요소를 가져옵니다.
+arr[0]
+// arr의 마지막 요소의 인덱스
+arr[arr.length-1]
+// 배열 요소의 값을 덮어쓰기
+const arr = [1,2,'c',,4,5];
+arr[2]=3;
+```
+
+배열과 객체 리터럴의 마지막에는 항상 쉼표가 있습니다. 
+> 자바스크립트 객체 표기법(JSON)에서는 마지막 쉼표를 허용하지 않습니다.
+
+
+### 3-13. 날짜
+
+자바스크립트의 날짜와 시간은 내장된 Date 객체에서 담당합니다. Date 객체는 자바스크립트에서 불만스러운 부분 중 하나입니다.
+현재 날짜와 시간을 나타내는 객체를 만들 떄는 new Date()를 사용합니다. 
+
+```js
+const now = new Date();
+now;
+```
+```js
+const halloweenParty = new Date();
+halloweenParty.getFullYear(); 
+halloweenParty.getMonth();
+halloweenParty.getDate();
+halloweenParty.getDay();
+halloweenParty.getHours();
+halloweenParty.getMinutes();
+halloweenParty.getSeconds();
+halloweenParty.getMilliseconds();
+```
+
+### 3-14. 정규표현식
+
+정규표현식은 자바스크립트의 부속 언어에 가깝습니다. 정규표현식은 여러 가지 프로그래밍 언어에서 일종의 확장으로 제공하며, 문자열에서 필요한 복잡한 검색과 교체 작업을 비교적 단순하게 만듭니다.
+
+### 3-15. 맵과 셋
+
+ES6에서는 새로운 데이터 타입 Map과 Set, 그리고 그들의 "약한" 짝인 WeakMap, WeakSet을 도입
+맵- 키와 값을 연결, 특정 상황에서 객체보다 유리한 부분이 있었음
+셋- 배열과 비슷하지만 중복 허용되지 않음
+
+### 3-16. 데이터 타입 변환
+데이터 타립을 다른타입ㅇ으로 바꾸는 일은 매우 자주 하는 작업 
+사용자 입력이나 다른 시스템에서 가져온 데이터를 그대로 쓸 수 있는 경우는 별로 없고, 대개 변환합니다. 
+
+**숫자 바꾸기**
+
+```js
+// Number 객체 생성자
+const numStr = "33.3";
+const num = Number(numStr); //문자열인 "33.3"을 숫자로 변환합니다. 
+
+// parseInt, parseFloat
+const a = pareInt("16 volts", 10); //"volts"는 무시됩니다. 10진수 16입니다. 
+const b = pareInt("3a", 16); //16진수 3a를 10진수로 바꿉니다. 결과는 58입니다. 
+const c = pareFloat("15.5 kph") //"kph"는 무시됩니다. parseFloat는 항상
+                                //기수가 10이라고 가정합니다.
+```
+
+**Date 객체를 숫자로 바꾸기**
+```js
+// valueOf()
+const d = new Date();
+const ts = d.valueOf(); // 몇 밀리초가 지났는지 나타내는 숫자
+```
+
+**문자열로 변환**
+```js
+// toString()
+const n = 33.5;
+n; // 숫자
+const s = n.toString();
+s; // 문자열
+const arr = [1, true, "hello"];
+arr.toString(); // 문자열
+```
+
+**불리언으로 변환**
+부정 연산자(!)를 써서 모든값을 불리언으로 바꿈
+```js
+const n = 0; // falsy
+const b1 = !!n; // false
+const b2 = Boolean(n) // false
+```
