@@ -644,23 +644,41 @@ const b2 = Boolean(n) // false
 
 
 ## 4. 제어문
+제어문은 크게 말해 조건문과 반봅ㄱ문 두 가지 범주로 나뉩니다. 조건문(if, if...else, switch)을 말하자면 갈림길과 같습니다. 선택할 수 있는 길이 몇 가지 있으면 그중 하나를 택할 뿐, 다른곳에는 갈 수 없습니다. 반복문(while, do...while, for) 조건이 맞는 동안 바디를 계속 반복합니다.
 
-### 4-1. while 루프
+### 4-1. 제어문의 예외
+제어문의 일반적인 실행 방식을 바꾸는 네가지 문이 있습니다. 
 
-**while**
+**break**
 
-while 루프는 조건을 만족하는 동안 **코드를 계속 반복**합니다. 
+루프 중간에 빠져나갑니다. 
+
+**continue**
+
+루프에서 다음 단게로 바로 건너뜁니다. 
+
+**return**
+
+제어문을 무시하고 현재 함수를 즉시 빠져나갑니다.
+
+**throw**
+
+예외 핸들러에서 반드시 처리해야 할 예외를 일으킵니다. 예외 핸들러는 현재 제어문 바깥에 있어도 상관없습니다. 
 
 ```js
-let funds= 50;
-while(funds >1 && funds<100){
-  // 돈을 겁니다. 
-  // 주사위를 굴립니다. 
-  // 그림을 맞췄으면 돈을 가져옵니다.
+function translateColor(english) {
+  switch (english) {
+    case 'red': return '빨강색';
+    case 'blue': return '파랑색';
+    case 'purple':
+    case 'violet': return '보라색';
+    default: throw new Error('일치하는 색깔이 없습니다.');
+  }
 }
 ```
+### 4-2. 제어문 기초
 
-### 4-2. 블록문 
+#### 4-2-1. 블록문 
 
 제어문은 아니지만 제어문과 함게 씁니다. 문 여러개를 중괄호로 붂은 것이며 하나의 단위로 취급 
 제어문 없이 사용은 가능하지만 의미는 없음. 
@@ -679,17 +697,29 @@ while(funds > 1 && funds <100)
   console.log(funds) // 100
 ```
 
-### 4-3. 공백 
+#### 4-2-2. 공백 
 줄바꿈 문자를 포함해, 추가 공백을 신결 쓰지 않습니다. 하지만 return문 뒤에 줄바꿈 문자를 쓰면 문제가 생깁니다. 줄바꿈없는 코드도 모로해 보이지 않는 코드가 될수있습니다. 
 
 블록안에 써서 일관성을 유지하고 의미를 명료하게 표현 하라고 하지만 협력하는 사람들과 상의하여 선택한 가이드를 따릅니다. 단지 불록 문과 블럭 없는 문을 썪어 사용하지 마세요
 
-### 4-4. if...else
 
 
+#### 4-2-3. while 루프
 
+**while**
 
-### 4-5. do...while
+while 루프는 조건을 만족하는 동안 **코드를 계속 반복**합니다. 
+
+```js
+let funds= 50;
+while(funds >1 && funds<100){
+  // 돈을 겁니다. 
+  // 주사위를 굴립니다. 
+  // 그림을 맞췄으면 돈을 가져옵니다.
+}
+```
+
+#### 4-2-4. do...while
 
 while 구문과 사용법은 크게 다르지 않으나, 내부 코드를 **무조건 한 번은 실행시킨다**는 차이점이 있습니다.
 
@@ -698,6 +728,280 @@ do {
   console.log('do...while!');
 } while (false); // 절대 `true`가 될 수 없지만, 루프는 1회 실행됩니다.
 ```
+
+
+#### 4-2-5. for 루프
+
+for문이 러울린 경우는 어떤 일을 정해진 숫자만큼 반복하려 할때, 특히 그 일을 지금 몇 번째 하는지 알아야 할때 입니다.
+
+```js
+const hand = [];
+for(let roll = 0; roll<3; roll++){
+    hand.push(randFace())
+}
+```
+
+#### 4-2-6. if 문
+
+if 문에서는 분기 중 하나만 행동으로 연결됩니다. 
+
+#### 4-2-7. if...else
+
+while문과 달리 if...else 문 자체에 반복 기능이 없습니다. 판단하고, 그에 따라 움직입니다.
+elsw 절은 if...else 문의 옵션입니다. 
+
+if..else 문을 연달아 쓰고, 각 else 절이 다음 if...else 문을 포함할 뿐입니다. 
+
+```js
+const bets = {crown:0, anchor:0, heart:0, spade:0, club:0, diamond:0 };
+let totalBet = rand(1,funds);
+if(totalBet ===7) {
+    totalBet = funds;
+    bet.heart = totalBet
+} else{
+    // 그 판에 걸 돈을 분배합니다.
+}
+funds
+```
+
+```js
+// new Date().getDay()는 현재 요일에 해당하는 
+// 숫자를 반환합니다. 0은 일요일
+if (new Date().getDay() === 3){
+    totalBet = 1;
+} else if(funds === 7){
+    totalBet = funds;
+} else {
+    console.log("NO")
+}
+```
+
+
+
+
+
+
+
+
+#### 4-2-8. switch 
+
+if..else 두가지줄 하나를 선택하지만 switch문은 조건 하나로 여러가지 중 하를 선택할수 있습니다. 
+```js
+switch(expression) {
+    case value1:
+        // expression을 평가한 결과가 vaule1일 때 실행합니다.
+        break;
+    case value2:
+        // expression을 평가한 결과가 vaule2일 때 실행합니다.
+        break;
+    case valueN:
+        // expression을 평가한 결과가 vauleN일 때 실행합니다.
+        break;
+    default:
+        // expression을 평가한 결과에 맞는 것이 없을 때 실행합니다.
+        break && return 
+}
+```
+**break**루프 중간에 빠져나갑니다. 
+switch에서 break를 생략 할수도 있습니다. 그래서 꼭 주석을 남기세요
+
+**default**는 case 절이 없을 떄 실행합니다. default절은 필수는 아니지만, 보톤 맨 마지막에 사용 
+
+**break**을 습관적으로 사용해야합니다. **return**은 즉시 함수를 빠져나가므로 break문 대신 쓸 수 있습니다.
+
+#### 4-2-9. for...in 
+for...in 루프는 객체의 프로퍼티에 루프를 실행하도록 설계하도록 설계된 루프입니다. 
+**(객체)**
+```js
+for (variable in obj) 
+    statement
+```
+
+#### 4-2-10. for..of
+for...of es06에 새로 생긴 반복문 
+**(배열)**
+```js
+for (variable of obj) 
+    statement
+```
+배열은 몰론 이터러블 객체에 모두 사용할 수 있는 범용적인 루프입니다. for...of는 배열에 루프를 실행해야 하지만 각 요소의 인덱스를 알 필요는 없을때 알맞습니다.
+인덱스를 알야야한다면 일반적인 for루프 사용 
+```js
+const arr = [1, 2, 3, 4, 5];
+
+for (let item of arr) {
+  console.log(`현재 요소는 ${item} 입니다.`);
+}
+```
+
+#### 4-2-11. forEach
+```js
+const arr = [1, 2, 3, 4, 5];
+
+arr.forEach((item, index) => {
+  console.log(`배열의 ${index + 1} 번째 요소는 ${item} 입니다.`);
+})
+```
+
+#### 코드 이해 
+```js
+// m 이상 n 이하의 무작위 정수를 반환
+function rand(m,n){
+    return m + Math.floor((n-m+1)*Math.random());
+}
+// 크라운 앤 앵커 게임의 여섯 그림 중 하나에 해당하는 문자열을 무작위로 변환합니다.
+function randFace(){
+    return ["crown", "anchor", "heart","spade", "club", "diamond"]
+  [rand(0,5)];
+}
+
+let funds = 50; //시작 조건
+let round = 0;
+
+while(funds > 1 && funds < 100){
+    round++;
+  console.log(`round ${round}:`);
+  console.log(`\tstarting funds: ${funds}p`);
+ // 돈을 겁니다.
+  let bets = {crown:0, anchor:0, heart:0, spade:0, club:0, diamond:0};
+  let totalBet = rand(1,funds);
+  if(totalBet === 7){
+      totalBet = funds;
+    bets.heart = totalBet;
+  } else {
+      // 판돈을 나눕니다.
+    let remaining = totalBet;
+    do{
+        let bet = rand(1,remaining);
+      let face = randFace();
+      bets[face] = bets[face] + bet;
+      remaining = remaining - bet;
+    } while(remaining > 0)
+  }
+  funds = funds - totalBet;
+
+// 주사위를 구비립니다. 
+  const hand = [];
+  for(let roll = 0; roll<3; roll++){
+      hand.push(randFace());
+  }
+  console.log(`\thand: ${hand.join(',')}`);
+
+  // 딴 돈을 가져옵니다. 
+  let winnings = 0;
+  for (let die=0; die < hand.length; die++) {
+      let face = hand[die];
+    if(bets[face] > 0) winnings = winnings + bets[face]
+  }
+  funds = funds + winnings;
+  console.log(`\twinnings: ${winnings}`);
+}
+
+console.log(`\tending funds: ${funds}`)
+```
+
+### 4-3. 메타 문법
+
+배커스-나우르 표기법 확장을 떠올립니다. 
+메타 문법을 써서 자바스크립트 제어문의 문법을 간결하게 표기 
+MDN에서 사용하는 문법 
+
+대괄호([])로 감싼 것은 옵션, 생략 부호(...)는 여기 들어갈 내용이 더 있다는 뜻 
+> 블록문도 문이므로, 문을 쓸 수 있는 곳에는 항상 블록 문도 사용 
+
+```js
+// while
+while(condition)
+    statement
+
+// if...else
+if(condition)
+    statement1
+[else
+    statement2]
+
+// do..while
+do
+    statement
+while(condition);
+
+// for
+for([initialization]; [condition]; [final-expression])
+    statement
+```
+
+
+
+
+
+### 4-4. 유용한 제어문 패턴
+
+**널리 쓰이는 패턴을 공부**
+
+#### 4-4-1. continueans문을 사용하여 조건 중첩 줄이기
+반복문 안에 조건문을 써야할 경우 
+```js
+// 변경 전
+while(funds> 1 && funds <100){
+  let totalBet = rand(1, funds);
+  if(totalBet === 13) {
+    console.log(Skip)
+  } else{
+    //플레이
+  }
+}
+
+// 변경후
+while(funds> 1 && funds <100){
+  let totalBet = rand(1, funds);
+  if(totalBet === 13) {
+    console.log(Skip)
+    continue
+  } 
+    //플레이
+}
+```
+
+#### 4-4-2. break나 return 문을 써서 불 필요한 연산 줄이기
+
+뭔가를 찾기 위해서 루프를 실행했다면, 찾으려는 것을 이미 찾은후에는 루프 바디를 계속 실행할 필요가 없습니다. 
+
+```js
+// 변경전
+let firstPrime = null;
+for(let n of bigArrayOfNumbers) {
+  if(isPrime(n) && firstPrime === null)
+    firstPrime = n;
+}
+
+// 변경후
+let firstPrime = null;
+for(let n of bigArrayOfNumbers) {
+  if(isPrime(n)){
+    firstPrime = n;
+    break;
+  }
+}
+```
+루프가 함수 안에 있었다면 break 대신 return 문을 써도 됩니다.
+
+#### 4-4-3. 배열을 수정할 때 감소하는 인덱스 사용하기 
+
+배열에 루프를 실행하면서 루프 바디에서 배열을 수정하는 건 위험할 수 있습니다. 뜼하지 않게 종료 저건을 바꿀 수도 있으니깐. 
+
+예를 들어 bigArrayOfNumbers에서 찾은 소수를 제거하고 싶다. splice 매서드는 배열 요소를 추가하거나 제거할 떄 사용합니다.
+
+```js
+for(let i=0; i<bigArrayOfNumbers.length; i++){
+    if(isPrime(gibArrayOfNumers[i])) bigArrayOfNumbers.splice(i,1)
+}
+
+for(let i =bigArrayOfNumbers.length-1; i >=0; i--){
+     if(isPrime(gibArrayOfNumers[i])) bigArrayOfNumbers.splice(i,1)
+}
+```
+
+인덱스는 점점 커지는데 우리는 요소를 제거하고 있으므로, 소수가 연달아 존재한자면 그중 일부를 제거하지 않고 넘어갈 가능성이 있습니다. 감소하는 인덱스 사용으로 해결 
 
 ## 7. 스코프
 
