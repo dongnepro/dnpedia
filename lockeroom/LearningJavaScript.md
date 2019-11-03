@@ -1311,8 +1311,151 @@ sayHello()
 ### 6-1. 반환값
 
 함수 호출도 **표현식**이고 함수 호출값은 **반환값**
+`return` 함수를 즉시 종료하고 값을 반환 
+- return을 명시적으로 호출하지 않으면 반환값은 : undefined
+
 ```js
-function
+function getGreething(){
+  return "Hello";
+}
+
+// 함수 호출은 반환값
+getGreeting();
+```
+### 6-2. 호출과 참조 
+
+**자바스크립트에서는 함수도 객체입니다.** 따라서 다른 객체와 마찬가지로 넘기거나 할당할 수 있습니다.
+```js
+// 함수 호출, 함수 바디 실행, 함수를 호출한 표현식은 반환값
+getGreething()
+
+//함수를 참조하는 것, 실행 되지 않음
+getGreething
+```
+
+```js
+// 함수를 변수에 할당라여 다른이름으로 함수를 호출 
+const f = getGreething;
+f(); // "Hello"
+
+
+// 함수를 객체 프로퍼티에 할당 
+const o = {};
+o.f = getGreething;
+o.f(); //"Hello"
+
+// 배열 요소로 할당
+const arr = [1,2,3];
+arr[1] = getGreething; //arr= [1, function getGreething(), 2]
+arr[1](); // "Hello"
+```
+
+### 6-3. 함수와 매개변수 
+
+함수에 정보를 전달할 때는 함수 매개변수를 이용합니다. 
+매개변수는 함수가 호출되기 전에는 존재하지 않는다는 점을 제외하면 일반덕인 변수나 마찬가지 하지만
+**매개변수는 함수 바디아넹서만 존재합니다.**
+
+```js
+// 함수 선언에서 a, b 매개변수
+// 함수가 호출되면 정해진 매개변수는 값을 받아 매개변수가 됨 
+function avg(a,b) {
+  return (a+b)/2;
+}
+```
+```js
+// 함수 안에서 매개변수에 값을 할당해도 함수 바깥에 있는 어떤 변수에도 아무런 영향이 없습니다.
+function f(x) {
+  console.log(`f 내부: x=${x}`)
+  x = 5;
+  console.log(`f 내부: x=${x} (할당후)`)
+}
+
+let x =3;
+console.log(`f를 호출하기 전: x=${x}`);
+f(4);
+console.log(`f를 호출한 다음: x=${x}`);
+
+// f를 호출하기 전: x=3
+// f 내부: x=4
+// f 내부: x=5 (할당후)
+// f를 호출한 다음: x=3
+```
+```js
+// 함수 f안에 객체o를 수정하고 함수바깥에서도 o에 그대로 반영되어 있음
+function f(o){
+  o.message = `f안에서 수정함(이전 값: "${o.message}")`
+}
+let o = {
+  message: "초기값"
+}
+
+console.log(`f를 호출하지 전: o.message = "${o.message}"`)
+f(o);
+console.log(`f를 호출한 다음: o.message = "${o.message}"`)
+```
+
+=> 이것은 원시 값과 객체의 핵심적인 차이입니다. 원시값은 불변이므로 수정할 수 없습니다. 원시 값을 담은 변수는 수정할 수 있지만 원시값 자체는 바뀌지 않습니다. 반면에 객체는 바뀔 수 있습니다. 참조이기 때문에 
+
+#### 6-3-1. 매개변수가 함수를 결정? 
+함수는 호출하든 그 함수에서 정해진 매개변수 숫자와 관계없이 명 개의 매개변수를 전달해도 됩니다. 정해진 매개변수에 값을 제공하지 않으면 매개변수는 암시적으로 undefined가 할당됩니다.
+
+```js
+function f(x) {
+  return `${x}`
+}
+f(); //undfined
+```
+
+#### 6-3-2. 매개변수 해체 
+해체 할당과 마찬가지로 프로퍼티 이름은 반드시 유효한 식별자여야 하고, 들어오는 객체에 해단 프로퍼티가 없는 변수는 undefined를 할당 
+배열 역시 해체 
+```js
+function getSent([sub,ver,obj]){
+  return `${sub} ${ver} ${obj}`
+}
+
+const arr= ["I", "LOVE", "JavaScript"];
+
+getSent(arr);
+```
+확산 연산자(...)를 써서 남는 매개변수를 이용 
+
+```js
+function getSent(name, ...rest){
+  console.log(rest)
+  return(`${name} 학생의 점수는 ${rest.join(', ')} 입니다.`)
+}
+
+getSent("seulbi", 70, 85);
+
+// [ 70, 85 ]
+// => 'seulbi 학생의 점수는 70, 85 입니다.'
+```
+
+#### 6-3-3. 매개변수 기본값 
+
+ES6에서는 매개변수에 기본값을 지정하는 기능도 추가 되었습니다. 
+일반적으로 배개변수에 값을 제공하지 않으면 undefined가 값으로 할당됩니다.
+
+```js
+function hello(name = 'Mary') {
+  // 코드가 훨신 더 깔끔해졌습니다!
+  console.log(`Hello, ${name}!`);
+}
+```
+
+### 6-4 객체의 프로퍼티인 함수 
+객체의 프로퍼티인 함수를 메서드라고 불러서 일반적인 함수와 구별합니다. 
+객체 리터럴에서도 메서드를 추가할수 있습니다.
+
+```js
+const Hello = {
+  name: "seulbi",
+  say() {return `Hello ${this.name}`} 
+} 
+
+Hello.say() //'Hello seulbi'
 ```
 ## 7. 스코프
 
